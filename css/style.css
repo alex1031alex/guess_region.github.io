@@ -1,0 +1,166 @@
+html {
+	height: 100%;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6, p, ul {
+	margin: 0;
+}
+
+.page {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	margin: 0;
+	background-color: #535353;
+}
+
+.page-header {
+    padding-right: 150px;
+	flex: 0 0 auto;
+	padding: 20px 0;
+	background-color: #fff;
+	background-image: url("../img/sign.png");
+	background-position: center left calc(50vw + 350px);
+	background-size: 51.464px 62.664px;
+	background-repeat: no-repeat;
+}
+
+.page-main {
+	flex: 1 0 auto;
+}
+
+.page-footer {
+	padding: 35px 0;
+	flex: 0 0 auto;
+	color: #fff;
+	background-color: #394034;
+}
+
+.page-footer__text {
+	text-align: center;
+}
+
+.page-header__title {
+
+	text-align: center;
+
+}
+.map {
+	width: 700px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.map svg {
+	transform: translateX(20px);
+	display: block;
+}
+
+.info__item {
+	width: 50%;
+	margin: 5px auto 0 auto;
+	background-color: green;
+	min-height: 32px;
+	font-size: 1.5rem;
+	text-transform: uppercase;
+	font-style: italic;
+	color: white;
+	text-align: center; 
+}
+
+.current-result {
+	padding: 0 10px;
+	display: flex;
+	justify-content: space-between;
+}
+
+.popup {
+	position: fixed;
+	top: 20%;
+	left: 30%;
+	width: 40%;
+	max-height: 572px;
+	padding: 10px;
+	font-family: Helvetica;
+	color: #fff;
+	background-color: rgba(53, 53, 53, 0.9);
+}
+
+.popup__title {
+	text-align: center;
+	font-size: 26px;
+	margin-bottom: 20px;
+}
+
+.popup__text {
+	font-size: 22px;
+}
+
+.popup__text:not(:last-child) {
+	margin-bottom: 15px;
+
+}
+
+.popup__btn {
+	padding: 12px;
+	font-size: 18px;
+	font-weight: 800;
+	color: #fff;
+	border: none;
+	background-color: #2a7eb4;
+}
+
+.popup__btn--restart {
+	position: relative;
+	padding-left: 40px;
+}
+
+.page-footer {
+	padding: 20px 10%;
+	display: flex;
+	font-size: 1.2em;
+	justify-content: space-between;
+}
+
+.page-footer__link {
+	color: #2a7eb4;
+	font-style: italic;
+}
+
+.popup__btn svg {
+	position: absolute;
+	left: 8px;
+	z-index: 10;
+}
+
+@media (max-width: 830px) {
+	.popup {
+		overflow-y: scroll; 
+	}
+}
+
+@keyframes blinking {
+	0% {
+		opacity: 0.4;
+	}
+	33% {
+		opacity: 0.6;
+	}
+	66% {
+		opacity: 0.8;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+.blinking {
+	fill: #dc143c;
+    animation-name: blinking;
+	animation-duration: 1s;
+	animation-iteration-count: infinite;
+}
