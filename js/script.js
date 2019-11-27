@@ -132,7 +132,7 @@ const onRegionClick = function () {
 			}
 		} else {
 			guessedRegion.counter--;
-			if (guessedRegion.counter <= 0) {
+			if (guessedRegion.counter === 0) {
 				paintRegion(guessedRegion, CRIMSON);
 				guessedRegion.classList.add('blinking');
 				guessedRegion.removeEventListener('click', onRegionClick);
