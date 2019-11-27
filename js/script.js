@@ -6,7 +6,7 @@ const ORANGE = '#ff9200';
 const CRIMSON = '#dc143c';
 const RED = '#f60018';
 // Находим районы на карте
-const regions = document.querySelectorAll('svg path');
+const regions = document.querySelectorAll('.map path');
 
 // Создаём ассоциативный массив из названий районов на русском языке
 const idToTitle = {
@@ -67,7 +67,7 @@ startButton.addEventListener('click', startGame);
 
 // Создаём массив номеров районов
 let regionNumbers = [];
-for (let i = 0; i < regions.length - 1; i++) {
+for (let i = 0; i < regions.length; i++) {
 	regionNumbers.push(+regions[i].dataset.index);
 };
 // Создаём загаданный район и район указанный игроком
