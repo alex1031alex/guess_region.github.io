@@ -145,8 +145,6 @@ const onRegionClick = function () {
 const onFailedRegionClick = function () {
 	paintRegion(this, RED);
 	this.classList.remove('blinking');
-	// let guessedElementIndex = regionNumbers.indexOf(+guessedRegion.dataset.index);
-	// regionNumbers.splice(guessedElementIndex, 1);
 	regionNumbers.remove(+guessedRegion.dataset.index);
 	this.style.cursor = '';
 	this.removeEventListener('click', onFailedRegionClick);
