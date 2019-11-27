@@ -65,11 +65,23 @@ const startGame = function () {
 // Вешаем обработчик на кнопку запуска
 startButton.addEventListener('click', startGame);
 
-// Создаём массив номеров районов
-let regionNumbers = [];
+// Создаём виртуальный список всех районов и методы работы с ним
+// Угаданные районы будем удалять из этого списка
+const regionNumbers = {
+	list: [],
+	remove: function (index) {
+		this.list.splice(this.list.indexOf(index), 1);
+	},
+	add: function (num) {
+		this.list.push(num);
+	}
+}
+
+// Наполняем список номерами районов
 for (let i = 0; i < regions.length; i++) {
-	regionNumbers.push(+regions[i].dataset.index);
-};
+	regionNumbers.add(+regions[i].dataset.index);
+}
+
 // Создаём загаданный район и район указанный игроком
 let guessedRegion;
 let guessedRegionTitle;
@@ -84,8 +96,8 @@ const getRandomInteger = function (min, max) {
 
 // Создаём функцию генерации вопросов
 const askQuestion = function () {
-	let randomNum = getRandomInteger(0, regionNumbers.length - 1);
-	guessedRegion = regions[regionNumbers[randomNum]];
+	let randomNum = getRandomInteger(0, regionNumbers.list.length - 1);
+	guessedRegion = regions[regionNumbers.list[randomNum]];
 	guessedRegionTitle = idToTitle[guessedRegion.id];
 	questionField.textContent = `Где находится ${guessedRegionTitle}?`;
 };
@@ -110,11 +122,10 @@ const onRegionClick = function () {
 				userResult += 1;
 			}
 			userResultField.textContent = userResult;
-			let guessedElementIndex = regionNumbers.indexOf(+this.dataset.index);
-			regionNumbers.splice(guessedElementIndex, 1);
+			regionNumbers.remove(+guessedRegion.dataset.index);
 			this.style.cursor = '';
 			this.removeEventListener('click', onRegionClick);
-			if (regionNumbers.length > 0) {
+			if (regionNumbers.list.length > 0) {
 				askQuestion();
 			} else {
 				finishGame();
@@ -128,10 +139,9 @@ const onRegionClick = function () {
 				guessedRegion.addEventListener('click', function () {
 					paintRegion(this, RED);
 					this.classList.remove('blinking');
-					let guessedElementIndex = regionNumbers.indexOf(+this.dataset.index);
-					regionNumbers.splice(guessedElementIndex, 1);
+					regionNumbers.remove(+guessedRegion.dataset.index);
 					this.style.cursor = '';
-					if (regionNumbers.length > 0) {
+					if (regionNumbers.list.length > 0) {
 						askQuestion();
 					} else {
 						finishGame();
