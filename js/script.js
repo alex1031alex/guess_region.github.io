@@ -131,7 +131,6 @@ const onRegionClick = function () {
 					let guessedElementIndex = regionNumbers.indexOf(+this.dataset.index);
 					regionNumbers.splice(guessedElementIndex, 1);
 					this.style.cursor = '';
-					this.removeEventListener('click', onRegionClick);
 					if (regionNumbers.length > 0) {
 						askQuestion();
 					} else {
