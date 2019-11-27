@@ -136,20 +136,26 @@ const onRegionClick = function () {
 				paintRegion(guessedRegion, CRIMSON);
 				guessedRegion.classList.add('blinking');
 				guessedRegion.removeEventListener('click', onRegionClick);
-				guessedRegion.addEventListener('click', function () {
-					paintRegion(this, RED);
-					this.classList.remove('blinking');
-					regionNumbers.remove(+guessedRegion.dataset.index);
-					this.style.cursor = '';
-					if (regionNumbers.list.length > 0) {
-						askQuestion();
-					} else {
-						finishGame();
-					}
-				});
+				guessedRegion.addEventListener('click', onFailedRegionClick);
 			}
 		}
 };
+
+// Создаём обработчик клика на регионе, который не был угадан
+const onFailedRegionClick = function () {
+	paintRegion(this, RED);
+	this.classList.remove('blinking');
+	// let guessedElementIndex = regionNumbers.indexOf(+guessedRegion.dataset.index);
+	// regionNumbers.splice(guessedElementIndex, 1);
+	regionNumbers.remove(+guessedRegion.dataset.index);
+	this.style.cursor = '';
+	this.removeEventListener('click', onFailedRegionClick);
+	if (regionNumbers.list.length > 0) {
+		askQuestion();
+	} else {
+		finishGame();
+	}
+}
 
 // Создаём функцию завершения игры
 const finishGame = function () {
