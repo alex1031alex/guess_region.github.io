@@ -1,5 +1,6 @@
 html {
 	height: 100%;
+	--tip-bg-color: #fff;
 }
 
 * {
@@ -163,4 +164,31 @@ h1, h2, h3, h4, h5, h6, p, ul {
     animation-name: blinking;
 	animation-duration: 1s;
 	animation-iteration-count: infinite;
+}
+
+.tip {
+	position: relative;	
+	box-sizing: border-box;
+	max-width: 150px;
+	padding: 0.3rem 0.6rem;
+	border-radius: 10px;
+	background-color: var(--tip-bg-color);
+}
+
+.tip::before {
+	content: '';
+	position: absolute;	
+	width: 0px;
+	height: 0px;
+	border-top-width: 0px;
+	border-bottom-width: 32px;
+	border-left-width: 12px;
+	border-right-width: 0px;
+	border-style: solid;
+	border-left-color: transparent;
+	border-right-color: transparent;
+	border-bottom-color: var(--tip-bg-color);
+	top: -22px;
+	left: 20px;
+	transform: rotate(15deg);
 }
