@@ -10,6 +10,8 @@
 			<h1 class="page-header__title">Как хорошо вы знаете Смоленскую область</h1>
 		</header>
 		<main class="page-main">
+
+			<!-- Главная карта -->
 			<div class="map">
 				<svg width="700" height="700" viewBox="0 0 200 200" id="svg6055">
 					<path style="fill:#959595; stroke:#000000; stroke-width:0.26458332px;
@@ -91,6 +93,8 @@
 				    id="ershichi" data-index="24"/>
 				</svg>
 			</div>
+
+		<!-- Информация о текущем результате -->
 		<section class="info" hidden>
 			<p class="info__item info__item--quest"></p>
 			<div class="info__item current-result">
@@ -99,10 +103,13 @@
 			</div>
 		</section>
 		</main>
+
 		<footer class="page-footer">
 			<p class="page-footer__text">Сайт создан: Alex Alexandrov</p>
 			<p class="page-footer__text">По мотивам <a href="https://motovskikh.ru/tests/" target="blank" class="page-footer__link">проекта братьев Мотовских</a></p>
 		</footer>
+
+		<!-- Всплывающее окно с правилами игры -->
 		<section class="popup description">
 			<h2 class="popup__title">Как хорошо вы знаете Смоленскую область?</h2>
 			<p class="popup__text">Задача: найти на карте все районы Смоленской области</p>
@@ -110,6 +117,8 @@
 			<p class="popup__text">После трех неверных попыток правильный район выделяется мигающим малиновым цветом, а после нажатия становится красным.</p>
 			<button class="popup__btn">Начать тест!</button>
 		</section>
+
+		<!-- Всплывающее окно с итогами игры -->
 		<section class="popup final-result" hidden>
 			<p class="popup__title">Ваш финальный результат:</p>
 			<p class="popup__text"></p>
@@ -123,7 +132,14 @@
 			</g>
 			</svg>Попробовать еще раз</button>
 		</section>
-		<template id="tip"></template>
+
+		<!-- Всплывающее сообщение подсказка -->
+		<template id="tip">
+			<div class="tip">
+				<p class="tip__text"></p>
+			</div>
+		</template>
+
 		<script src=js/tip.js></script>
 		<script src=js/script.js></script>
 	</body>
