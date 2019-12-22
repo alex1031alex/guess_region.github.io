@@ -12,6 +12,7 @@ h1, h2, h3, h4, h5, h6, p, ul {
 }
 
 .page {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	height: 100%;
@@ -175,12 +176,13 @@ h1, h2, h3, h4, h5, h6, p, ul {
 }
 
 .tip {
-	position: relative;	
+	position: absolute;	
 	box-sizing: border-box;
 	max-width: 150px;
 	padding: 0.3rem 0.6rem;
 	border-radius: 10px;
 	background-color: var(--tip-bg-color);
+	transform: translate(-35px, 20px);
 }
 
 .tip::before {
