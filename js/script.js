@@ -5,6 +5,8 @@ const YELLOW = '#ffff73';
 const ORANGE = '#ff9200';
 const CRIMSON = '#dc143c';
 const RED = '#f60018';
+// Установим время задержки показа всплывающих окон
+const POPUP_DELAY_TIME = 400;
 // Находим районы на карте
 const regions = document.querySelectorAll('.map path');
 
@@ -108,7 +110,7 @@ const paintRegion = function (region, color) {
 };
 
 // Создаём фукнкцию обработчик клика
-const onRegionClick = function () {
+const onRegionClick = function (evt) {
 		userRegionTitle = idToTitle[this.id];
 		if (guessedRegionTitle === userRegionTitle) { 
 			if (guessedRegion.counter === 3) {
@@ -121,6 +123,7 @@ const onRegionClick = function () {
 				paintRegion(this, ORANGE);
 				userResult += 1;
 			}
+			showTip(evt.clientX, evt.clientY, true);
 			userResultField.textContent = userResult;
 			regionNumbers.remove(+guessedRegion.dataset.index);
 			this.style.cursor = '';
@@ -128,10 +131,11 @@ const onRegionClick = function () {
 			if (regionNumbers.list.length > 0) {
 				askQuestion();
 			} else {
-				finishGame();
+				setTimeout(finishGame, POPUP_DELAY_TIME);
 			}
 		} else {
 			guessedRegion.counter--;
+			showTip(evt.clientX, evt.clientY, false);
 			if (guessedRegion.counter === 0) {
 				paintRegion(guessedRegion, CRIMSON);
 				guessedRegion.classList.add('blinking');
