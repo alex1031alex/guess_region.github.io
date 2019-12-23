@@ -4,7 +4,7 @@
 const SUCCES_MESSAGE = 'Вы угадали!';
 const MISTAKE_MESSAGE = 'Нет, это не он!';
 // Время показа подсказок
-const TIP_SHOW_TIME = 500;
+const TIP_SHOW_TIME = 600;
 // Страница и шаблон с подсказками
 const page = document.querySelector('body');
 const tipTemplate = document.querySelector('#tip').content.querySelector('.tip');
