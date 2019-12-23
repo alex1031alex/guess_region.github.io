@@ -11,6 +11,11 @@ h1, h2, h3, h4, h5, h6, p, ul {
 	margin: 0;
 }
 
+img {
+	max-width: 100%;
+	height: auto;
+}
+
 .page {
 	position: relative;
 	display: flex;
@@ -23,12 +28,21 @@ h1, h2, h3, h4, h5, h6, p, ul {
 .page-header {
     padding-right: 150px;
 	flex: 0 0 auto;
-	padding: 20px 0;
+	padding: 20px 0 12px 0;
 	background-color: #fff;
-	background-image: url("../img/sign.png");
-	background-position: center left calc(50vw + 350px);
-	background-size: 51.464px 62.664px;
-	background-repeat: no-repeat;
+}
+.page-header__inner {
+	width: 700px;
+	margin: 0 auto;
+	padding: 0 10px;
+	display: flex;
+	justify-content: flex-start;
+	flex-wrap: wrap;
+}
+
+.logo {
+	width: 42px;
+	margin-right: 10px;
 }
 
 .page-main {
@@ -47,7 +61,7 @@ h1, h2, h3, h4, h5, h6, p, ul {
 }
 
 .page-header__title {
-
+	font-size: 28px;
 	text-align: center;
 
 }
