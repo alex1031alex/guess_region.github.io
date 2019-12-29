@@ -123,7 +123,7 @@ const onRegionClick = function (evt) {
 				paintRegion(this, ORANGE);
 				userResult += 1;
 			}
-			showTip(evt.clientX, evt.clientY, true);
+			showTip(evt.pageX, evt.pageY, true);
 			userResultField.textContent = userResult;
 			regionNumbers.remove(+guessedRegion.dataset.index);
 			this.style.cursor = '';
@@ -135,7 +135,7 @@ const onRegionClick = function (evt) {
 			}
 		} else {
 			guessedRegion.counter--;
-			showTip(evt.clientX, evt.clientY, false);
+			showTip(evt.pageX, evt.pageY, false);
 			if (guessedRegion.counter === 0) {
 				paintRegion(guessedRegion, CRIMSON);
 				guessedRegion.classList.add('blinking');
