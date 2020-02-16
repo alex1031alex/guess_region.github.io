@@ -24,11 +24,47 @@ img {
 	background-color: #535353;
 }
 
+.page-main__content {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.achievement {
+	width: calc((100% - 700px)/2);
+	flex-shrink: 0;
+}
+
+@keyframes moving-sign {
+	0% {
+		transform: translateX(-1000px);
+	}
+	100% {
+		transform: translateX(0px);
+	}
+}
+
+.achievement-item {
+	width: 87px;
+	height: 103px;
+	float: left;
+	background-color: #fff;
+	background-size: contain;
+}
+
+.achievement-animation {
+	animation-name: moving-sign;
+	animation-duration: 0.3s;
+}
+
+
+
 .page-header {
     padding-right: 150px;
 	flex: 0 0 auto;
-	padding: 20px 0 12px 0;
+	padding: 10px 0 10px 0;
 	background-color: #fff;
+	border: 1px solid #535353;
 }
 .page-header__inner {
 	width: 700px;
@@ -66,7 +102,6 @@ img {
 }
 .map {
 	width: 700px;
-	margin: 0 auto;
 	overflow: hidden;
 }
 

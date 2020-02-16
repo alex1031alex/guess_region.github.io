@@ -10,8 +10,14 @@ const RED = '#f60018';
 // Установим время задержки показа всплывающих окон
 const POPUP_DELAY_TIME = 400;
 
-// Находим районы на карте
-const regions = document.querySelectorAll('.map path');
+// Формируем списки районов и функцию для работы с ними
+const regions = {
+	"totalList": document.querySelectorAll('.map path'),
+	"playingList": null,
+	"renewPlayingList": function () {
+		this.playingList = document.querySelectorAll('[data-playing="true"]');
+	}
+};
 
 // Создаём ассоциативный массив из названий районов на русском языке
 const idToTitle = {
@@ -54,38 +60,26 @@ const infoSection = document.querySelector('.info');
 //Создаём функцию запуска игры
 const startGame = function () {
 	// Устанавливаем каждому району свойство counter,меняем указатель, вешаем обработчики
-	regions.forEach(function(reg){
+	regions.totalList.forEach(function(reg){
 		reg.counter = 3;
+		reg.setAttribute('data-playing', true);
+		// reg.dataset.playing = false;
 		reg.style.cursor = 'pointer';
 		reg.addEventListener('click', onRegionClick);
 	});
+	// Формируем список регионов, подлежащих отгадыванию
+	regions.playingList = document.querySelectorAll('[data-playing="true"]');
+	console.log(regions.playingList);
 	// Скрываем описание
 	descPopup.hidden = true;
 	// Открываем информационный блок
 	infoSection.hidden = false;
 	// Задаём первый вопрос
 	askQuestion();
-}; 
+};
 
 // Вешаем обработчик на кнопку запуска
 startButton.addEventListener('click', startGame);
-
-// Создаём виртуальный список всех районов и методы работы с ним
-// Угаданные районы будем удалять из этого списка
-const regionNumbers = {
-	list: [],
-	remove: function (index) {
-		this.list.splice(this.list.indexOf(index), 1);
-	},
-	add: function (num) {
-		this.list.push(num);
-	}
-}
-
-// Наполняем список номерами районов
-for (let i = 0; i < regions.length; i++) {
-	regionNumbers.add(+regions[i].dataset.index);
-}
 
 // Создаём загаданный район и район указанный игроком
 let guessedRegion;
@@ -101,10 +95,15 @@ const getRandomInteger = function (min, max) {
 
 // Создаём функцию генерации вопросов
 const askQuestion = function () {
-	let randomNum = getRandomInteger(0, regionNumbers.list.length - 1);
-	guessedRegion = regions[regionNumbers.list[randomNum]];
+	let randomNum = getRandomInteger(0, regions.playingList.length - 1);
+	guessedRegion = regions.playingList[randomNum];
 	guessedRegionTitle = idToTitle[guessedRegion.id];
 	questionField.textContent = `Где находится ${guessedRegionTitle}?`;
+	console.log(`Длина массива районов в игре: ${regions.playingList.length}`);
+	console.log(`Случайное число: ${randomNum}`);
+	console.log(regions.playingList);
+	console.log(`Загадан район: ${guessedRegion.id}`);
+	console.log(guessedRegion);
 };
 
 // Создаём функцию закрашивания района
@@ -114,6 +113,7 @@ const paintRegion = function (region, color) {
 
 // Создаём функцию обработчик клика
 const onRegionClick = function (evt) {
+	console.log(this);
 		userRegionTitle = idToTitle[this.id];
 		if (guessedRegionTitle === userRegionTitle) { 
 			if (guessedRegion.counter === 3) {
@@ -127,11 +127,13 @@ const onRegionClick = function (evt) {
 				userResult += 1;
 			}
 			showTip(evt.pageX, evt.pageY, true);
+			showAchievement(this.id);
 			userResultField.textContent = userResult;
-			regionNumbers.remove(+guessedRegion.dataset.index);
 			this.style.cursor = '';
 			this.removeEventListener('click', onRegionClick);
-			if (regionNumbers.list.length > 0) {
+			this.dataset.playing = false;
+			regions.renewPlayingList();
+			if (regions.playingList.length > 0) {
 				askQuestion();
 			} else {
 				setTimeout(finishGame, POPUP_DELAY_TIME);
@@ -152,10 +154,11 @@ const onRegionClick = function (evt) {
 const onFailedRegionClick = function () {
 	paintRegion(this, RED);
 	this.classList.remove('blinking');
-	regionNumbers.remove(+guessedRegion.dataset.index);
+	this.dataset.playing = false;
+	regions.renewPlayingList();
 	this.style.cursor = '';
 	this.removeEventListener('click', onFailedRegionClick);
-	if (regionNumbers.list.length > 0) {
+	if (regions.playingList.length > 0) {
 		askQuestion();
 	} else {
 		finishGame();
@@ -164,6 +167,7 @@ const onFailedRegionClick = function () {
 
 // Создаём функцию завершения игры
 const finishGame = function () {
+	console.log(guessedRegion);
 	finalResultPopup.hidden = false;
 	questionField.hidden = true;
 	document.querySelector('.final-result .popup__title').textContent += ` ${userResult}%`;
